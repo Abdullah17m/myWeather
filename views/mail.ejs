@@ -1,0 +1,31 @@
+
+ <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+    <title>Weather</title>
+  </head>
+  <body style="text-align: center; background-color: #FFF5EB;">
+    
+      <div class="card">
+      <article class="widget">
+  
+          <div class="weatherIcon " style="padding-bottom: 15px;"><img src=<%= source %> ></div>
+          <div class="weatherInfo">
+            <div class="place" style="padding-bottom: 15px; text-transform: capitalize;"><b><%= city %> </b></div>
+            <div class="temperature" style="padding-bottom: 15px; text-transform: capitalize;"><span><b>Today's Temperature </b><%= temp %>&deg;</span></div>
+            <div class="description">    
+              <div class="weatherCondition" style="padding-bottom: 15px;text-transform: capitalize;"><b><%= description %></b> </div>    
+              
+            </div>
+          </div>
+          <div class="date"> <b><%= day %>  <%= date %></b> </div>
+        </article>
+      
+      </div>
+    
+  </body>
+  </html> 

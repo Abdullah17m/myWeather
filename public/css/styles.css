@@ -1,0 +1,20 @@
+
+
+.card{
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+  font-weight: bold ;
+}
+
+.form-button {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  
+  
+  cursor: pointer;
+}
