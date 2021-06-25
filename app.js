@@ -195,6 +195,9 @@ app.get("/logout",function(req,res){
                       console.log("err");
                       res.redirect("/index")
                  }
+                 else{
+                      res.redirect("/success")
+                 }
                 
             })
             cron.schedule('0 7 * * *', () => {
@@ -260,7 +263,7 @@ app.post("/login",function(req,res){
 
 app.post("/delete",function(req,res){
   
-     User.findByIdAndRemove(req.user._id,function(err){
+     User.findByIdAndRemove(req.user.id,function(err){
        if(err){
            console.log(err);
        }

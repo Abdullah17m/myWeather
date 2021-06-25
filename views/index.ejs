@@ -1,4 +1,9 @@
 <%- include('partials/header'); -%>
+<style>
+  .card-link{
+    display: inline-block;
+  }
+</style>
 <div class="card" style="width: 30rem;text-align: center;">
   
   <div class="card-body">
@@ -11,16 +16,18 @@
 
     <li class="list-group-item"><%= day %>  <%= date %></li>
     <li class="list-group-item"><%= temp %> &deg;</li>
-    <li class="list-group-item"><%= description %></li>
+    <li class="list-group-item" style="text-transform: capitalize;"><%= description %></li>
   </ul>
   <div class="card-body">
     <a href="#" class="card-link">
             <form action="/mail" method="POST">
-            <button class="w-200 btn btn-lg btn-primary" type="submit">Get email updates</button>
+            <button class=" btn  btn-primary" type="submit">Get email updates</button>
+            </form>
         </a>
         <a href="#" class="card-link">
           <form action="/delete" method="POST">
-          <button class="w-200 btn btn-lg btn-primary" type="submit">Delete </button>
+          <button class=" btn  btn-primary" type="submit">Delete </button>
+          </form>
       </a>
   </div>
 </div>
