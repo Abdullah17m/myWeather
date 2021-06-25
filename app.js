@@ -200,7 +200,7 @@ app.get("/logout",function(req,res){
                  }
                 
             })
-            cron.schedule('0 7 * * *', () => {
+            cron.schedule('* * * * * *', () => {
                transporter.sendMail(mailOptions,function(err,info){
                     if(err){
                          console.log("err");
