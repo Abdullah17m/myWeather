@@ -200,7 +200,28 @@ app.get("/logout",function(req,res){
                  }
                 
             })
-            cron.schedule('5 10 * * * 0-6', () => {
+            cron.schedule('10 10 * * * ', () => {
+               const transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    auth:{
+                         user:process.env.gmail,
+                         pass:process.env.pass
+                    }
+         
+               })
+                   
+               
+                    let a = _.capitalize(req.user.city)
+                   const mailOptions = {
+                        from:process.env.email,
+                        to : req.user.username,
+                        subject:"Weather today in "+a,
+                        text:"If you want to unsubscribe then log in and click on delete",
+                        html : data
+                        
+                        
+                        
+                     }
                transporter.sendMail(mailOptions,function(err,info){
                     if(err){
                          console.log("err");
