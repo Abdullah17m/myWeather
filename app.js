@@ -67,7 +67,7 @@ app.get("/login",function(req,res){
 app.get("/success",function(req,res){
      if(req.isAuthenticated()){
           res.render("success.ejs")
-          console.log(req.user.username)
+         
      }
      else{
           res.redirect("/login")
@@ -161,75 +161,65 @@ app.get("/logout",function(req,res){
          const imgurl = "http://openweathermap.org/img/wn/"+iconid+"@2x.png"
          const d = new Date();
      const months = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-     
+     const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth:{
+               user:process.env.gmail,
+               pass:process.env.pass
+          }
+
+     })
+     let a = _.capitalize(req.user.city)
+     const mailOptions = {
+          from:process.env.email,
+          to : req.user.username,
+          subject:"Weather today in "+a,
+          
+          
+          
+          
+       }
      ejs.renderFile(path.join(__dirname,"views/mail.ejs"),{city:wdata.name,temp:temp,source:imgurl,date:months[d.getMonth()],day:d.getDate(),description:wdata.weather[0].description},function(err,data){
              
           if(err){
                console.log(err);
           }
-          
-      const transporter = nodemailer.createTransport({
-           service: "gmail",
-           auth:{
-                user:process.env.gmail,
-                pass:process.env.pass
-           }
-
-      })
-          
-      
-           let a = _.capitalize(req.user.city)
-          const mailOptions = {
-               from:process.env.email,
-               to : req.user.username,
-               subject:"Weather today in "+a,
-               text:"If you want to unsubscribe then log in and click on delete",
-               html : data
+          else{
+               mailOptions.html = data
                
-               
-               
-            }
-            
-            transporter.sendMail(mailOptions,function(err,info){
-                 if(err){
-                      console.log("err");
-                      res.redirect("/index")
-                 }
-                 else{
-                      res.redirect("/success")
-                 }
-                
-            })
-            cron.schedule('10 10 * * * ', () => {
-               const transporter = nodemailer.createTransport({
-                    service: "gmail",
-                    auth:{
-                         user:process.env.gmail,
-                         pass:process.env.pass
-                    }
-         
-               })
+             
                    
                
-                    let a = _.capitalize(req.user.city)
-                   const mailOptions = {
-                        from:process.env.email,
-                        to : req.user.username,
-                        subject:"Weather today in "+a,
-                        text:"If you want to unsubscribe then log in and click on delete",
-                        html : data
-                        
-                        
-                        
-                     }
-               transporter.sendMail(mailOptions,function(err,info){
-                    if(err){
-                         console.log("err");
-                         res.redirect("/index")
-                    }
-                  
-               })
-          });
+                
+                    transporter.sendMail(mailOptions,function(err,info){
+                         if(err){
+                              console.log("err");
+                              res.redirect("/index")
+                         }
+                         else{
+                              res.redirect("/success")
+
+                         }
+                       
+                    })
+               
+          }
+   
+          
+      
+    
+            
+     //        transporter.sendMail(mailOptions,function(err,info){
+     //             if(err){
+     //                  console.log("err");
+     //                  res.redirect("/index")
+     //             }
+     //             else{
+     //                  res.redirect("/success")
+     //             }
+                
+     //        })
+        
           })
           
      
@@ -288,7 +278,7 @@ app.post("/delete",function(req,res){
        if(err){
            console.log(err);
        }
-       
+    
        res.redirect("/register")
    
    })
